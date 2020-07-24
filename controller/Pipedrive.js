@@ -7,6 +7,7 @@ class Pipedrive {
       title: pipedriveDeal.title,
       value: pipedriveDeal.value,
       status: pipedriveDeal.status,
+      person_name: pipedriveDeal.person_name,
       date: new Date()
     };
 
