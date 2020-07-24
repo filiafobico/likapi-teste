@@ -7,4 +7,9 @@ router.post('/', (req, res, next) => {
   res.sendStatus(200);
 });
 
+router.get('/', async (req, res, next) => {
+  const soldPerDay = await new Pipedrive().dealReport();
+  res.send(soldPerDay);
+});
+
 module.exports = router;

@@ -18,6 +18,30 @@ class Pipedrive {
         { upsert: true }
       );
   }
+
+  async dealReport() {
+    return await global.db
+    .collection('pipedrive-deal')
+    .aggregate([
+      {
+        $match: { status: 'won' }
+      },
+      {
+        $addFields: {
+          day: {
+            $dateToString: { format: '%d-%m-%Y', date: '$date' }
+          }
+        }
+      },
+      {
+        $group: {
+          _id: '$day',
+          vendas: { $sum: '$value' }
+        }
+      }
+    ])
+    .toArray();
+  }
 }
 
 module.exports = Pipedrive;
