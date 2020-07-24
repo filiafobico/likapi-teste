@@ -3,6 +3,10 @@ const { toXML } = require('jstoxml');
 
 class Bling {
 
+  /**
+   * Pega apikey da variável de ambiente KEY_BLING
+   * necessária para enviar dados ao Bling
+   */
   constructor() {
     this.apiKey = process.env.KEY_BLING;
     if (!this.apiKey) {
@@ -10,6 +14,12 @@ class Bling {
     }
   }
 
+  /**
+   * Insere um novo pedido de venda no Bling caso seja uma venda ganha
+   *
+   * @param {Object} pipedriveDeal objeto com informações da deal
+   * @returns null caso o deal não tenha o status 'won'
+   */
   insertDemand(pipedriveDeal) {
     if (pipedriveDeal.status !== 'won') {
       return;
@@ -25,6 +35,13 @@ class Bling {
       });
   }
 
+  /**
+   * Constrói XML de envio para Bling
+   * remove caracteres inválidos para a api
+   *
+   * @param {Object} pipedriveDeal objeto com informações da deal
+   * @returns string com XML para envio
+   */
   makeDemandXml(pipedriveDeal) {
     return toXML({
       pedido: {
