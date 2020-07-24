@@ -18,6 +18,8 @@ class Pipedrive {
         { $set: deal },
         { upsert: true }
       );
+
+    return deal;
   }
 
   async dealReport() {
