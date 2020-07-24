@@ -1,6 +1,13 @@
 class Pipedrive {
+
   constructor() { }
 
+  /**
+   * Recebe uma venda e insere ou atualiza caso exista no banco
+   *
+   * @param {Object} pipedriveDeal Deal provindo da API do pipedrive com o estado atual
+   * @returns objeto deal como foi inserido no banco
+   */
   dealInsertUpdate(pipedriveDeal) {
     const deal = {
       _id: pipedriveDeal.id,
@@ -22,6 +29,11 @@ class Pipedrive {
     return deal;
   }
 
+  /**
+   * Agrega vendas por dia e soma o valor vendido
+   *
+   * @returns array com dias e valor vendido
+   */
   async dealReport() {
     return await global.db
     .collection('pipedrive-deal')
